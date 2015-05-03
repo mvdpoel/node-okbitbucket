@@ -58,6 +58,21 @@ bitbucket.getRepoApi().show(secrets.username, 'test', function(err, repo) {
 
 <a name="ssh"></a>
 # ssh
+should delete/add ssh key.
+
+```js
+bitbucket.getSshApi().addKey(pubkey, function(err, key) {
+  if (err) { console.error(err); }
+  (err == null).should.eql(true);
+  key.key.should.eql(pubkey);
+  bitbucket.getSshApi().deleteKey(key.pk, function(err2){
+    if (err2) { console.error(err2); }
+    (err2 == null).should.eql(true);
+    done();
+  });
+});
+```
+
 should get all ssh keys.
 
 ```js
@@ -69,22 +84,6 @@ bitbucket.getSshApi().addKey(pubkey, function(err) {
     (err2 == null).should.eql(true);
     keys.length.should.be.above(0);
     keys[0].key.should.eql(pubkey);
-    done();
-  });
-});
-```
-
-should prevent to overwrite existing keys.
-
-```js
-bitbucket.getSshApi().addKey(pubkey, function(err, key) {
-  if (err) { console.error(err); }
-  key.key.should.eql(pubkey);
-  (err == null).should.eql(true);
-  bitbucket.getSshApi().addKey(pubkey, function(err2) {
-    if (err2) { console.error(err2); }
-    err2.msg.should
-      .match(/Someone has already registered that SSH key/);
     done();
   });
 });
