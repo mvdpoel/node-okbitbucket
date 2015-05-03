@@ -89,6 +89,22 @@ bitbucket.getSshApi().addKey(pubkey, function(err) {
 });
 ```
 
+should prevent to overwrite existing keys.
+
+```js
+bitbucket.getSshApi().addKey(pubkey, function(err, key) {
+  if (err) { console.error(err); }
+  key.key.should.eql(pubkey);
+  (err == null).should.eql(true);
+  bitbucket.getSshApi().addKey(pubkey, function(err2) {
+    if (err2) { console.error(err2); }
+    err2.msg.should
+      .match(/Someone has already registered that SSH key/);
+    done();
+  });
+});
+```
+
 <a name="users"></a>
 # users
 should get data of authenticated user.
