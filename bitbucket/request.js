@@ -19,7 +19,7 @@ var Request = function(options) {
   this.$defaults = {
     /* eslint-disable key-spacing, max-len, camelcase */
     protocol    : 'https',
-    path        : '/1.0',
+    path        : '/2.0',
     hostname    : 'api.bitbucket.org',
     format      : 'json',
     user_agent  : 'js-okbitbucket-api (http://github.com/maboiteaspam/node-okbitbucket)',
