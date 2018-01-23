@@ -47,6 +47,15 @@ RepoApi.prototype.getUserRepos = function(username, callback)
   );
 };
 
+RepoApi.prototype.getRepoBranches = function(username, repo, callback)
+{
+  this.$api.get(
+  'repositories/' + encodeURI(username) + '/' + encodeURI(repo) + '/refs/branches',
+  null,
+  null,
+  callback
+  );
+};
 
 /* eslint-disable */
 // @todo
